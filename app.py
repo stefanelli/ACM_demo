@@ -132,7 +132,7 @@ def invoke_jobs_api(product, freq, n_clicks):
         print("No button clicked yet")
         return no_update
     prod = inv_name_map[product]
-    w = WorkspaceClient()
+    w = WorkspaceClient(host=f"https://{SERVER_HOSTNAME}", token=ACCESS_TOKEN)
     parameters_to_cluster = {'instrument': prod, 'resample_freq': freq}
     notebook_path = "/Workspace/Users/salvatore.stefanelli@gmail.com/ACM_demo"
     create_job = w.jobs.create(
