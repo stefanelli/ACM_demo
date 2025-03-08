@@ -24,15 +24,8 @@ TABLE_NAME = "simple_data"
 
 app = Dash(__name__)
 app.title = "ACM"
+server = app.server
 
-# with sql.connect(
-#     server_hostname=SERVER_HOSTNAME, http_path=HTTP_PATH, access_token=ACCESS_TOKEN
-# ) as connection:
-#     with connection.cursor() as cursor:
-#         cursor.execute(f"SELECT * FROM {DB_NAME}.{TABLE_NAME} LIMIT 100")
-#         df = cursor.fetchall_arrow()
-#         df = df.to_pandas()
-# #
 df = pd.DataFrame({
         'Tenor':     ['ON', '1M' , '3M' , '6M' , '1Y' , '2Y' , '3Y' , '5Y' , '7Y' , '10Y', '15Y', '20Y', '30Y'],
         'Zero Rate': [4.43, 4.496, 4.448, 4.442, 4.087, 4.328, 4.321, 4.419, 4.502, 4.778, 5.085, 5.287, 4.589]
@@ -142,10 +135,6 @@ def invoke_jobs_api(product, freq, n_clicks):
     w = WorkspaceClient()
     parameters_to_cluster = {'instrument': prod, 'resample_freq': freq}
     notebook_path = "/Workspace/Users/salvatore.stefanelli@gmail.com/ACM_demo"
-    # try:
-    #     w.clusters.ensure_cluster_is_running(SERVER_HOSTNAME)
-    # except Exception as e:
-    #     print("The connection to databricks isn't configured correctly. Revise /.env file")
     create_job = w.jobs.create(
         name=f"sdk-{time.time_ns()}",
         tasks=[
