@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aloe}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aloe}
+      POSTGRES_DB: ${POSTGRES_DB:-aloe}
+    ports:
+      # Host port 5434 avoids colliding with a local system PostgreSQL (5432/5433).
+      - "5434:5432"
+    volumes:
+      # Postgres 18+ expects a mount at /var/lib/postgresql (version-specific subdirs).
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aloe} -d ${POSTGRES_DB:-aloe}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

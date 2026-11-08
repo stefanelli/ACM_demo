@@ -176,3 +176,21 @@ cython_debug/
 .databrickscfg
 
 .idea
+
+# ---- Aloe additions ----
+
+# uv / Python
+backend/.venv/
+backend/.python-version
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Frontend (Node / Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Local environment (do not commit secrets)
+.env
