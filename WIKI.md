@@ -180,9 +180,10 @@ Compare candidates using net P&L per unit of scenario loss and margin, correlati
 2. **Fed Funds futures:** separate EFFR path and SOFR/EFFR basis; do not substitute EFFR for SOFR.
 3. **Options:** Black76, exact option/futures expiry mapping, implied-vol inversion, and volatility surfaces.
 4. **Measured C++ optimisation:** accrual, batch scenario repricing, calibration, or replay only after profiling.
-5. **ECB and BoE:** €STR and SONIA curves, followed by cross-market relative value and correlation.
-6. **ClickHouse:** only if actual tick-data scale and query benchmarks justify it.
-7. **Execution research:** richer book-depth, slippage, roll, margin, and capacity models.
+5. **Serialisation optimisation (msgspec):** the platform currently uses Pydantic v2 because it is FastAPI's native model/serialization layer and auto-generates OpenAPI schemas. `msgspec` is faster and lighter, and is a candidate for hot JSON paths (large quote/scenario payloads, high-throughput ingestion) *if* profiling shows serialization is a bottleneck. Apply it selectively (e.g. `msgspec.Struct` for the numeric core or `fastmsgspec` for specific endpoints) rather than replacing the Pydantic/OpenAPI layer wholesale.
+6. **ECB and BoE:** €STR and SONIA curves, followed by cross-market relative value and correlation.
+7. **ClickHouse:** only if actual tick-data scale and query benchmarks justify it.
+8. **Execution research:** richer book-depth, slippage, roll, margin, and capacity models.
 
 ## 10. Documentation map
 

@@ -32,6 +32,7 @@ Key decisions:
 - Paper execution only; no broker routing.
 - C++ is introduced only after Python profiling demonstrates a meaningful benefit.
 - Options and Black76 are a later extension, not part of the first complete workflow.
+- Pydantic v2 for API models/serialization (FastAPI-native, OpenAPI auto-generation). `msgspec` is a later optimisation candidate for hot JSON paths only if profiling justifies it.
 
 ## Verified findings — 2026-11-07
 
